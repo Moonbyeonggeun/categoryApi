@@ -17,7 +17,6 @@ public class RedisDaoPattern {
 
     /**
      * 레디스에 값 설정 및 만료시간 설정
-     *
      * @param key
      * @param object
      * @param expire
@@ -27,7 +26,6 @@ public class RedisDaoPattern {
         redisTemplate.opsForValue().set(key, objectMapper.writeValueAsString(object), expire, TimeUnit.SECONDS);
 
     }
-
 
     /**
      * 레디스에서 값 가져오기
@@ -48,5 +46,14 @@ public class RedisDaoPattern {
             T obj = mapper.readValue(jsonResult, classType);
             return obj;
         }
+    }
+
+    /**
+     * 레디스 키 삭제
+     * @param key
+     * @throws Exception
+     */
+    public void delRedisKey(String key) throws Exception {
+        redisTemplate.delete(key);
     }
 }

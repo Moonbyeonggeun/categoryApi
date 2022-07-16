@@ -22,4 +22,10 @@ public class CodeUtill {
 
     // 삭제 플래그 1:사용불가
     public static final int DELETE_FLAG_OFF = 1;
+
+    // redis 키 기준 값
+    public static final String SEARCH_KEY = "searchCategory_";
+
+    // redis 전체 검색 키 값
+    public static final String SEARCH_KEY_ALL = "all";
 }

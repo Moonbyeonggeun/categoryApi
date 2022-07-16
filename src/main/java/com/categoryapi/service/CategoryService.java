@@ -84,6 +84,9 @@ public class CategoryService {
             // 상위 카테고리 upsert
             categoryRepository.save(upsertCate);
 
+            // redis 값 초기화
+            redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + CodeUtill.SEARCH_KEY_ALL);
+
             // 등록 성공 코드 리턴(200)
             result = CodeUtill.RESULT_SUCCESS;
 
@@ -173,6 +176,12 @@ public class CategoryService {
                 categoryRepository.save(updateCate);
             }
 
+            // redis 값 초기화
+            redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + CodeUtill.SEARCH_KEY_ALL);
+
+            // 수정 전 카테고리 초기화
+            redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + setUnicode(request.getCate()));
+
             // 등록 성공 코드 리턴(200)
             result = CodeUtill.RESULT_SUCCESS;
 
@@ -236,7 +245,11 @@ public class CategoryService {
 
                 categoryRepository.save(delCategory);
 
+                // redis 값 초기화
+                redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + CodeUtill.SEARCH_KEY_ALL);
 
+                // 삭제된 카테고리 초기화
+                redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + setUnicode(request.getCate()));
 
                 // 등록 성공 코드 리턴(200)
                 result = CodeUtill.RESULT_SUCCESS;
@@ -325,6 +338,15 @@ public class CategoryService {
                 // 상위 카테고리가 존재 하지 않음
                 result = CodeUtill.RESULT_FAIL;
 
+            }
+
+            // result가 성공 코드인 경우
+            if (CodeUtill.RESULT_SUCCESS.equals(result)) {
+                // redis 값 초기화
+                redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + CodeUtill.SEARCH_KEY_ALL);
+
+                // 수정 전 카테고리 초기화
+                redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + setUnicode(request.getCategory()));
             }
 
         } catch(Exception e) {
@@ -423,6 +445,15 @@ public class CategoryService {
                 result = CodeUtill.RESULT_SUCCESS;
             }
 
+            // result가 성공 코드인 경우
+            if (CodeUtill.RESULT_SUCCESS.equals(result)) {
+                // redis 값 초기화
+                redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + CodeUtill.SEARCH_KEY_ALL);
+
+                // 수정 전 카테고리 초기화
+                redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + setUnicode(request.getCate()));
+            }
+
         } catch(Exception e) {
             log.error(e.getMessage());
 
@@ -488,6 +519,16 @@ public class CategoryService {
                 result = CodeUtill.RESULT_FAIL;
 
             }
+
+            // result가 성공 코드인 경우
+            if (CodeUtill.RESULT_SUCCESS.equals(result)) {
+                // redis 값 초기화
+                redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + CodeUtill.SEARCH_KEY_ALL);
+
+                // 수정 전 카테고리 초기화
+                redisDaoPattern.delRedisKey(CodeUtill.SEARCH_KEY + setUnicode(request.getCategory()));
+            }
+
         } catch(Exception e) {
 
             log.error(e.getMessage());
@@ -511,7 +552,7 @@ public class CategoryService {
 
         SearchCategoryResponse response = new SearchCategoryResponse();
 
-        String selectKey = "searchCategory_";
+        String selectKey = CodeUtill.SEARCH_KEY;
         try {
 
             // response설정
@@ -525,7 +566,7 @@ public class CategoryService {
                         .deleteFlg(CodeUtill.DELETE_FLAG_ON)
                         .build();
 
-                selectKey += "all";
+                selectKey += CodeUtill.SEARCH_KEY_ALL;
 
                 SearchCategoryResponse getRedisResult = redisDaoPattern.getRedisData(selectKey, SearchCategoryResponse.class);
 
@@ -563,19 +604,7 @@ public class CategoryService {
 
                 log.info("start searchCategory   param : " + request.getCategoryName());
 
-                StringBuffer unicode = new StringBuffer();
-
-                for(int i=0; i<request.getCategoryName().length(); i++){
-                    int cd = request.getCategoryName().codePointAt(i);
-                    if (cd < 128){
-                        unicode.append(String.format("%c", cd));
-                    }else{
-                        unicode.append(String.format("\\u%04x", cd));
-                    }
-                }
-
-
-                selectKey += unicode;
+                selectKey += setUnicode(request.getCategoryName());
 
                 SearchCategoryResponse getRedisResult = redisDaoPattern.getRedisData(selectKey, SearchCategoryResponse.class);
 
@@ -739,5 +768,25 @@ public class CategoryService {
         categoryListResponse.setCategoryDetailResponseList(categoryDetailResponseList);
 
         return categoryListResponse;
+    }
+
+    /**
+     * 카테고리명을 unicode로 변경
+     * @param category
+     * @return
+     */
+    private StringBuffer setUnicode(String category) {
+
+        StringBuffer unicode = new StringBuffer();
+
+        for (int i = 0; i < category.length(); i++) {
+            int cd = category.codePointAt(i);
+            if (cd < 128) {
+                unicode.append(String.format("%c", cd));
+            } else {
+                unicode.append(String.format("\\u%04x", cd));
+            }
+        }
+        return unicode;
     }
 }
