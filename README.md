@@ -8,9 +8,9 @@
 
 ---
 
-# linux환경에 설정하기 위해 필요한 것
+# linux환경에서 빌드하기 위해 필요한 것
 
-    * 자바 11, gradle 이 설치 되어 있을것
+    * 자바 11, gradle, git, redis 설치
 
     * java
         install
@@ -34,9 +34,9 @@
         install
             wget를 이용하여 설치
                 yum install wget
-            완료 후 gradle.zip 가져오기
+            wget 설치 완료 후 gradle.zip 가져오기
                 wget https://services.gradle.org/distributions/gradle-7.0.2-bin.zip
-            mkdir /opt/gradle 로 gradle압축 풀 폴더 생성
+            mkdir /opt/gradle 로 gradle압축파일을 풀 폴더 생성
             압축 푼 파일 /opt/gradle로 이동
                 unzip -d /opt/gradle gradle-7.0.2-bin.zip
                 ☆unzip이 없을시 yum install unzip 로 unzip설치
@@ -64,7 +64,7 @@
     * git
         install
             yum install git
-        사용자 추가
+        git 설정 (사용자 추가)
             git config --global user.name "사용자이름"
             git config --global user.email "사용자 메일"
         이름과 메일 설정되었는지 확인
@@ -104,37 +104,37 @@
 
 # 기능별 플로우 차트
 * 카테고리 등록
-\
+
 <img width="350" height="550" src="readmefiles/상위카테고리등록.png">
 
 
 * 하위 카테고리 등록
-\
+
 <img width="350" height="600" src="readmefiles/하위카테고리등록.png">
 
 
 * 카테고리 수정
-\
+
 <img width="350" height="600" src="readmefiles/상위카테고리수정.png">
 
 
 * 하위 카테고리 수정
-\
+
 <img width="350" height="650" src="readmefiles/하위카테고리수정.png">
 
 
 * 카테고리 삭제
-\
+
 <img width="350" height="600" src="readmefiles/상위카테고리삭제.png">
 
 
 * 하위 카테고리 삭제
-\
+
 <img width="350" height="550" src="readmefiles/하위카테고리삭제.png">
 
 
 * 카테고리 검색
-\
+
 <img width="680" height="600" src="readmefiles/카테고리검색.png">
 
 --- 
@@ -166,7 +166,8 @@
         DB조회 전 redis를 먼저 조회 하여 값이 있는 경우 redis에서 조회한 데이터 리턴
             ☆현재 소스상 redis expire time이 1분으로 되어 있음.
         redis에 데이터가 없는 경우 DB 직접 조회
-        redis키 값은 전체 검색의 경우 `searchCategory_all`, 카테고리를 지정하여 검색하는 경우 입력값을 unicode로 변환하여 searchCategory_유니코드로 변환한 값  으로 설정
+        redis키 값은 전체 검색의 경우 `searchCategory_all`를 키로 설정
+        카테고리를 지정하여 검색하는 경우 입력값을 unicode로 변환하여 searchCategory_유니코드로 변환한 값 으로 설정
 
 
 ---
