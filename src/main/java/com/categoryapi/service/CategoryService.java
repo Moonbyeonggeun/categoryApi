@@ -609,7 +609,7 @@ public class CategoryService {
             response.setCategoryListResponseList(categoryListResponseList);
 
             // 레디스 설정
-            redisDaoPattern.setRedisData(selectKey, response, 600);
+            redisDaoPattern.setRedisData(selectKey, response, 60);
 
         } catch(Exception e) {
 
