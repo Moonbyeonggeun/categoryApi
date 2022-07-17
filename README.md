@@ -17,7 +17,8 @@
             yum install java-11-openjdk-devel.x86_64
         설치 후 java -version, javac -version 으로 버전 확인
         java 환경변수 설정
-            readlink -f /bin/javac 명령어로 자바가 설치된 경로 확인
+            which java 명령어로 위치 확인
+            readlink -f which명령어로 확인한 경로  명령어로 자바가 설치된 경로 확인
             /etc/profile 파일에 환경 변수 설정 (vi 이용시 vi /etc/profile)
             하단에 아래와 같이 추가
                 export JAVA_HOME=자바가 설치된 경로
