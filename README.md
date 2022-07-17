@@ -105,32 +105,32 @@
 # 기능별 플로우 차트
 * 카테고리 등록
 
-<img width="350" height="550" src="readmefiles/상위카테고리등록.png">
+<img width="350" height="600" src="readmefiles/상위카테고리등록.png">
 
 
 * 하위 카테고리 등록
 
-<img width="350" height="600" src="readmefiles/하위카테고리등록.png">
+<img width="350" height="650" src="readmefiles/하위카테고리등록.png">
 
 
 * 카테고리 수정
 
-<img width="350" height="600" src="readmefiles/상위카테고리수정.png">
+<img width="350" height="650" src="readmefiles/상위카테고리수정.png">
 
 
 * 하위 카테고리 수정
 
-<img width="350" height="650" src="readmefiles/하위카테고리수정.png">
+<img width="350" height="700" src="readmefiles/하위카테고리수정.png">
 
 
 * 카테고리 삭제
 
-<img width="350" height="600" src="readmefiles/상위카테고리삭제.png">
+<img width="350" height="650" src="readmefiles/상위카테고리삭제.png">
 
 
 * 하위 카테고리 삭제
 
-<img width="350" height="550" src="readmefiles/하위카테고리삭제.png">
+<img width="350" height="600" src="readmefiles/하위카테고리삭제.png">
 
 
 * 카테고리 검색
