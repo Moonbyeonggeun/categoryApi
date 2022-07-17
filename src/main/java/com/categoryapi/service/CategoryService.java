@@ -65,7 +65,7 @@ public class CategoryService {
 
                 // 삭제된 카테고리가 존재하는 경우
                 // 삭제플래그 해제
-                if (category.getDeleteFlg() == 1) {
+                if (category.getDeleteFlg() == CodeUtill.DELETE_FLAG_OFF) {
 
                     upsertCate = Category.builder()
                             .categoryNo(category.getCategoryNo())
@@ -259,7 +259,6 @@ public class CategoryService {
                 // 등록, 수정 실패 (잘못된 등록방법)
                 result = CodeUtill.RESULT_FAIL;
             }
-
 
         } catch(Exception e) {
 
