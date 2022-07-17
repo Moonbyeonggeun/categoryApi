@@ -79,21 +79,21 @@
             systemctl start redis
         ☆현재 소스상 포트가 6379로 설정 되어 있으나 이미 사용중인 경우 소스 수정 필요
             수정해야할 파일과 내용
-            ~/categoryApi/src/main/resources
+            ~/categoryApi/src/main/resources/application.properties
             spring.redis.port= 사용할 포트
 
     * build
         소스가 있는 폴더(~/categoryApi)에서 빌드
             ./gradlew build
-            ☆Permission denied 에러가 발생하면 아래의 명령어로 권한 부여
+            ☆Permission denied 에러가 발생하면 아래의 명령어로 권한 설정
                 chmod +x gradlew
         정상적으로 종료되면 ~/categoryApi/build/libs 경로에 CategoryApi-0.0.1-SNAPSHOT.jar 가 생성된것 확인
         아래 명령어로 실행
             java -jar CategoryApi-0.0.1-SNAPSHOT.jar
 
-        ☆현재 소스상 포트가 6379로 설정 되어 있으나 이미 사용중인 경우 소스 수정 필요
+        ☆현재 소스상 포트가 80으로 설정 되어 있으나 이미 사용중인 경우 소스 수정 필요
             수정해야할 파일과 내용
-            ~/categoryApi/src/main/resources
+            ~/categoryApi/src/main/resources/application.properties
             server.port= 사용할 포트
 
 ---
